@@ -1,0 +1,22 @@
+language: python
+
+matrix:
+  include:
+    - os: linux
+      sudo: required
+      python: 3.3
+    - os: linux
+      sudo: required
+      python: 3.4
+    - os: linux
+      sudo: required
+      python: 3.5
+
+install:
+  - source ./scripts/install.sh
+  - pip install tox tox-travis coveralls
+
+script: tox
+after_success: coveralls
+
+
