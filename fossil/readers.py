@@ -58,7 +58,6 @@ class GitRepoReader(FileSystemReader):
         super(GitRepoReader, self).__init__(path, skip=[".git"])
 
     def get_template(self):
-        
         if not os.path.isdir(self.path):
             exit_code = subprocess.check_call(['git', 'clone', self.repo_url],
                                               cwd=templates_dir)
