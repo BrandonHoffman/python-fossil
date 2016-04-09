@@ -34,7 +34,10 @@ class TemplateFile(VirtualFile):
 
     def __init__(self, *args, **kwargs):
         super(TemplateFile, self).__init__(*args, **kwargs)
-        self.template = Template(self.content)
+        try:
+            self.template = Template(self.content)
+        except:
+            self.template = None
         self.name_template = Template(self.name)
 
     def render(self, **kwargs):
@@ -50,7 +53,10 @@ class TemplateFile(VirtualFile):
             context['fossil']['file'] = {
                 'name': new_name
             }
-            new_content = self.template.render(context)
+            if self.template is not None:
+                new_content = self.template.render(context)
+            else:
+                new_content = self.content
             new_file = VirtualFile(new_name, new_content)
             new_files.append(new_file)
         return new_files
