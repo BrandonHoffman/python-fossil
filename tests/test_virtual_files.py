@@ -77,10 +77,10 @@ class TestTemplateFile(TestVirtualFiles):
 
         virt_file6 = virtual_files.TemplateFile(
             "{{test}}",
-            b"asd123"
+            b"\xc2"
         )  # simulate binary file
         result_files6 = virt_file6.render(test="test_name")
         assert len(result_files6) == 1
         assert result_files6[0].__class__ == virtual_files.VirtualFile
         assert result_files6[0].name == "test_name"
-        assert result_files6[0].content == b"asd123"
+        assert result_files6[0].content == b"\xc2"
